@@ -7,9 +7,9 @@ body {
     
 }
 
-hi {
+h1 {
     font-size: 15rem;
-    font-family: Montserrat;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .letter {
