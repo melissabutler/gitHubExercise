@@ -3,13 +3,13 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: black;
+    background-color: darkcyan;
     
 }
 
 h1 {
     font-size: 15rem;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: Montserrat;
 }
 
 .letter {
