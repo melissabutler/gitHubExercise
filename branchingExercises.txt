@@ -1,0 +1,194 @@
+Part I
+git branch example-name
+Fast foward merge merges a single "line" of a branch in chronological order, whereas a recursive merge creates a new commit that serves as a merge point between the two branches. 
+git checkout otherBranchName
+git branch -d branchToDelete
+Merge conflicts happen when two versions of the same file are trying to be committed. For example, both main and branch1 have a file named first.txt, but the contents of the file are different.
+
+Part II
+Merge Branch
+
+$ mkdir branchExercise
+$ cd branchExercise
+$ git init
+$ touch index.html
+$ ls
+index.html
+$ git add .
+$ git commit -m "add html"
+[master (root-commit) 60ae62b] add html
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 index.html
+$ ls
+index.html
+$ git status
+On branch master
+nothing to commit, working tree clean
+$ git checkout -b addJS
+Switched to a new branch 'addJS'
+$ git branch
+* addJS
+  master
+$ touch app.js
+$ ls
+app.js  index.html
+$ git checkout master
+Switched to branch 'master'
+$ git merge master addJS
+Already up to date.
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        app.js
+nothing added to commit but untracked files present (use "git add" to track)
+$ git checkout addJS
+Switched to branch 'addJS'
+$ git add .
+$ git commit -m "add app.js"
+[addJS 845d3f7] add app.js
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 app.js
+$ ls
+app.js  index.html
+$ git checkout master
+Switched to branch 'master'
+$ ls
+index.html
+$ git merge master addJS
+Updating 60ae62b..845d3f7
+Fast-forward
+ app.js | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 app.js
+$ ls
+app.js  index.html
+$ git branch
+  addJS
+* master
+$ git branch -d addJS
+Deleted branch addJS (was 845d3f7).
+
+
+
+Merge Conflicting Branch
+
+melissabutler@Melissas-PC:~/branchExercise$ git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint:
+hint:   git config --global init.defaultBranch <name>
+hint:
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint:
+hint:   git branch -m <name>
+Initialized empty Git repository in /home/melissabutler/branchExercise/.git/
+melissabutler@Melissas-PC:~/branchExercise$ touch index.hmtl
+melissabutler@Melissas-PC:~/branchExercise$ touch hello.txt
+melissabutler@Melissas-PC:~/branchExercise$ ls
+hello.txt  index.hmtl
+melissabutler@Melissas-PC:~/branchExercise$ git add hello.txt index.html
+fatal: pathspec 'index.html' did not match any files
+melissabutler@Melissas-PC:~/branchExercise$ rm index.hmtl
+melissabutler@Melissas-PC:~/branchExercise$ touch index.html
+melissabutler@Melissas-PC:~/branchExercise$ ls
+hello.txt  index.html
+melissabutler@Melissas-PC:~/branchExercise$ git add index.html
+melissabutler@Melissas-PC:~/branchExercise$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        hello.txt
+
+melissabutler@Melissas-PC:~/branchExercise$ git add hello.txt
+melissabutler@Melissas-PC:~/branchExercise$ git commit -m "add hello and index"
+[master (root-commit) 8d16a39] add hello and index
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 hello.txt
+ create mode 100644 index.html
+melissabutler@Melissas-PC:~/branchExercise$ git checkout -b conflict
+Switched to a new branch 'conflict'
+melissabutler@Melissas-PC:~/branchExercise$ ls
+hello.txt  index.html
+melissabutler@Melissas-PC:~/branchExercise$ cat hello.txt
+melissabutler@Melissas-PC:~/branchExercise$ echo "goodbye" > hello.txt
+melissabutler@Melissas-PC:~/branchExercise$ cat hello.txt
+goodbye
+melissabutler@Melissas-PC:~/branchExercise$ git status
+On branch conflict
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   hello.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+melissabutler@Melissas-PC:~/branchExercise$ git add .
+melissabutler@Melissas-PC:~/branchExercise$ git commit -m "added goodbye to hello.txt"
+[conflict 0dc1678] added goodbye to hello.txt
+ 1 file changed, 1 insertion(+)
+melissabutler@Melissas-PC:~/branchExercise$ git status
+On branch conflict
+nothing to commit, working tree clean
+melissabutler@Melissas-PC:~/branchExercise$ git checkout master
+Switched to branch 'master'
+melissabutler@Melissas-PC:~/branchExercise$ ls
+hello.txt  index.html
+melissabutler@Melissas-PC:~/branchExercise$ cat hello.txt
+melissabutler@Melissas-PC:~/branchExercise$ echo "hello" > hello.txt
+melissabutler@Melissas-PC:~/branchExercise$ cat hello.txt
+hello
+melissabutler@Melissas-PC:~/branchExercise$ git add hello.txt
+melissabutler@Melissas-PC:~/branchExercise$ git commit -m "added hello to hello.txt"
+[master f796a77] added hello to hello.txt
+ 1 file changed, 1 insertion(+)
+melissabutler@Melissas-PC:~/branchExercise$ git status
+On branch master
+nothing to commit, working tree clean
+melissabutler@Melissas-PC:~/branchExercise$ git merge master conflict
+Auto-merging hello.txt
+CONFLICT (content): Merge conflict in hello.txt
+Automatic merge failed; fix conflicts and then commit the result.
+melissabutler@Melissas-PC:~/branchExercise$ cat hello.txt
+<<<<<<< HEAD
+hello
+=======
+goodbye
+>>>>>>> conflict
+melissabutler@Melissas-PC:~/branchExercise$ echo "hello" > hello.txt
+melissabutler@Melissas-PC:~/branchExercise$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   hello.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+melissabutler@Melissas-PC:~/branchExercise$ git add hello.txt
+melissabutler@Melissas-PC:~/branchExercise$ git status
+On branch master
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+melissabutler@Melissas-PC:~/branchExercise$ git commit -m "fixed hello.txt"
+[master 3354b6a] fixed hello.txt
+melissabutler@Melissas-PC:~/branchExercise$ git status
+On branch master
+nothing to commit, working tree clean
+melissabutler@Melissas-PC:~/branchExercise$ git log --oneline
+3354b6a (HEAD -> master) fixed hello.txt
+f796a77 added hello to hello.txt
+0dc1678 (conflict) added goodbye to hello.txt
+8d16a39 add hello and index
+melissabutler@Melissas-PC:~/branchExercise$
